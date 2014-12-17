@@ -1,0 +1,67 @@
+-- VERSION_4
+-- START DISKCACHE
+/Users/jebai/Documents/workspace/django/.metadata/.plugins/org.eclipse.core.resources/.projects/Photo/com.python.pydev.analysis/v2_indexcache
+Photo.wsgi|1418644578000|/Users/jebai/Documents/workspace/django/Photo/src/Photo/wsgi.py
+Photo.urls|1418647895000|/Users/jebai/Documents/workspace/django/Photo/src/Photo/urls.py
+Photo.models|1418692200000|/Users/jebai/Documents/workspace/django/Photo/src/Photo/models.py
+Photo.views|1418647690000|/Users/jebai/Documents/workspace/django/Photo/src/Photo/views.py
+Photo.settings|1418647085000|/Users/jebai/Documents/workspace/django/Photo/src/Photo/settings.py
+Photo.__init__|1418644578000|/Users/jebai/Documents/workspace/django/Photo/src/Photo/__init__.py
+manage|1418644578000|/Users/jebai/Documents/workspace/django/Photo/src/manage.py
+Photo.admin|1418693908000|/Users/jebai/Documents/workspace/django/Photo/src/Photo/admin.py
+-- END DISKCACHE
+-- START DICTIONARY
+14
+2=Photo.wsgi
+4=Photo.models
+5=Photo.urls
+1=Photo.settings
+3=Photo.admin
+7=PPT
+9=PPTForm.Meta
+12=PPTForm
+11=PPTItemAdmin
+14=PPT.Meta
+10=PPTAdmin
+8=PPTItemInline
+13=PPTItem.Meta
+6=PPTItem
+-- END DICTIONARY
+-- START TREE 1
+19
+all|1|ALLOWED_HOSTS!11@
+app|1|application!19@
+bas|1|BASE_DIR!11@
+dat|1|DATABASES!11@
+deb|1|DEBUG!11@
+ins|1|INSTALLED_APPS!11@
+lan|1|LANGUAGE_CODE!11@
+med|2|MEDIA_ROOT!11@MEDIA_URL!11@
+mid|1|MIDDLEWARE_CLASSES!11@
+ppt|6|PPTAdmin!25@PPTItemAdmin!25@PPTForm!25@PPT!33@PPTItemInline!25@PPTItem!33@
+roo|1|ROOT_URLCONF!11@
+sec|1|SECRET_KEY!11@
+sta|1|STATIC_URL!11@
+tem|1|TEMPLATE_DEBUG!11@
+thu|1|THUMBNAIL_ALIASES!11@
+tim|1|TIME_ZONE!11@
+url|1|urlpatterns!43@
+use|3|USE_TZ!11@USE_I18N!11@USE_L10N!11@
+wsg|1|WSGI_APPLICATION!11@
+-- END TREE
+-- START TREE 2
+13
+__u|2|__unicode__!6&34@__unicode__!7&34@
+ext|1|extra!8&27@
+fie|1|fields!9&27@
+for|3|form!10&27@formfield_overrides!11&27@formfield_overrides!8&27@
+ima|1|image!6&35@
+inl|1|inlines!10&27@
+lis|2|list_display!11&27@list_display!10&27@
+met|3|Meta!12&25@Meta!6&33@Meta!7&33@
+mod|2|model!9&27@model!8&27@
+nam|1|name!7&35@
+ord|2|ordering!13&35@ordering!14&35@
+ppt|1|ppt!6&35@
+ver|4|verbose_name!13&35@verbose_name!14&35@verbose_name_plural!13&35@verbose_name_plural!14&35@
+-- END TREE

@@ -1,0 +1,78 @@
+# -*- coding: utf-8 -*-
+from django.contrib import admin
+
+# Register your models here.
+
+
+
+# 货品属性
+from product.models import Brand
+from product.models import Year
+from product.models import Season
+from product.models import Meeting
+from product.models import Wave
+from product.models import Sort
+from product.models import Category
+from product.models import Pattern
+from product.models import Range
+from product.models import SizeGroup
+from product.models import Status
+from product.models import Long
+
+from product.models import Plu
+from product.models import Suit
+
+from product.models import Color
+from product.models import Size
+
+# class PluItemAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'name')
+    
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', "short_name")
+    
+    
+class WaveAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', "onsell", "desc", "meeting")
+
+admin.site.register(Brand, BrandAdmin)
+admin.site.register(Season)
+admin.site.register(Year)
+
+admin.site.register(Meeting)
+
+admin.site.register(Wave, WaveAdmin)
+admin.site.register(Sort)
+admin.site.register(Category)
+admin.site.register(Pattern)
+admin.site.register(Range)
+admin.site.register(SizeGroup)
+admin.site.register(Status)
+admin.site.register(Long)
+
+class ProductForm(adminModelForm):
+    class Meta:
+        widgets = {
+
+            # Appended by text
+            'discount': EnclosedInput(append='%'),
+            'size': EnclosedInput(append='m<sup>2</sup>'),
+
+            # By icons
+            'email': EnclosedInput(append='icon-envelope'),
+            'user': EnclosedInput(prepend='icon-user'),
+
+            # You can also use prepended and appended together
+            'price': EnclosedInput(prepend='$', append='.00'),
+
+            # Use HTML for append/prepend (See Twitter Bootstrap docs of supported tags)
+            'url': EnclosedInput(prepend='icon-home', append='<input type="button" class="btn"  value="Open link">'),
+
+        }
+
+
+admin.site.register(Plu)
+admin.site.register(Suit)
+
+admin.site.register(Color)
+admin.site.register(Size)

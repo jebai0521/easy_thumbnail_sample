@@ -1,0 +1,133 @@
+# -*- coding: utf-8 -*-
+
+from django.db import models
+
+import hashlib
+
+import datetime
+from django.template.defaultfilters import default
+from scipy.signal.signaltools import order_filter
+
+
+# from filer.fields.image import FilerImageField
+# from filer.fields.file import FilerFileField
+
+# Create your models here.
+
+# PPT讲义
+class PPT(models.Model):
+    
+    name = models.CharField(max_length=30, verbose_name=u"讲义标题")
+
+    class Meta:
+        verbose_name = u'讲义PPT'
+        verbose_name_plural = u'讲义PPT'
+        pass
+        
+    def __unicode__(self):
+        return self.name
+
+# PPT讲义图片
+class PPTItem(models.Model):
+    
+    ppt = models.ForeignKey(PPT, verbose_name=u"讲义")
+    image = models.ImageField(u"讲义图片", upload_to="./ppt")
+#     logo = FilerImageField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = u'讲义PPT图片'
+        verbose_name_plural = u'讲义PPT图片'
+        ordering = ['id']
+        pass
+        
+    def __unicode__(self):
+        return str(self.id)
+    
+#     def image_tag(self):
+#         return u'<img src="%s" width="100" height="100"/>' % self.image.url
+#     image_tag.short_description = 'Image'
+#     image_tag.allow_tags = True
+
+class OrderStatus(models.Model):
+    
+    name = models.CharField('状态名称', max_length=30)
+
+    class Meta:
+        verbose_name = u'订单状态'
+        verbose_name_plural = u'订单状态'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return str(self.name)
+
+# 订单
+class Order(models.Model):
+
+    code    = models.CharField(max_length=100)                  # 订单编号
+    meeting = models.ForeignKey('product.Meeting')              # 订货会
+    store   = models.ForeignKey('store.Store')                  # 店铺
+    
+    qty = models.IntegerField(u'数量', default=0)
+    amount = models.FloatField(u'吊牌价', default=0)
+    
+    status = models.ForeignKey('OrderStatus', verbose_name="订单状态")
+
+    class Meta:
+        verbose_name = u'订单'
+        verbose_name_plural = u'订单'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return str(self.code)
+
+# 记录
+class Record(models.Model):
+
+    plu     = models.ForeignKey('product.Plu', verbose_name="货品")       # 单品
+    color   = models.ForeignKey('product.Color',  verbose_name="货品")    # 颜色
+    size    = models.ForeignKey('product.Size', verbose_name="尺码")      # 尺码
+    order   = models.ForeignKey(Order, verbose_name="订单")               # 订单
+    count   = models.IntegerField(verbose_name="数量")                    # 数量 
+
+    class Meta:
+        verbose_name = u'订货记录'
+        verbose_name_plural = u'订货记录'
+        ordering = ['id']
+        pass
+    
+    def __unicode__(self):
+        return self.plu
+    
+class SessionManager(models.Manager):
+    
+    def create_book(self, customer):
+
+        now = datetime.datetime.now()
+        
+        sid = hashlib.md5(customer.code + str(now)).hexdigest()
+        
+        book = self.create(customer=customer, sid=sid, create_time=now)
+
+        return book
+
+# 会话管理
+class Session(models.Model):
+    
+    customer = models.ForeignKey("customer.Customer", verbose_name="用户")        # 用户
+    
+    sid = models.CharField(max_length="100", verbose_name="会话ID")               # 会话ID
+    
+    create_time = models.DateTimeField(auto_now=True, verbose_name="创建时间")       # 创建时间
+    
+    objects = SessionManager()  
+    
+    class Meta:
+        verbose_name = u'会话管理'
+        verbose_name_plural = u'会话管理'
+        ordering = ['id']
+        pass
+    
+    def __unicode__(self):
+        return self.sid
+    
+    

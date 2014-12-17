@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+'''
+Created on Nov 19, 2014
+
+@author: jebai
+'''
+from django.conf.urls import patterns, include, url
+
+from order import odJson
+
+urlpatterns = patterns('',
+    
+    # 处理App的Json请求
+    url(r'^app/odJson/proc.action$',  odJson.route, name='odJson')
+)

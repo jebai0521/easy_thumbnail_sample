@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;order/src/store/txts/store_method.txt&apos; to &apos;method.txt&apos;" description="Rename resource &apos;store_method.txt&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/store/txts/store_method.txt" name="method.txt" stamp="1417760955662" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;order/src/store/txts/store_type.txt&apos; to &apos;type.txt&apos;" description="Rename resource &apos;store_type.txt&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/store/txts/store_type.txt" name="type.txt" stamp="1417760961040" updateReferences="true"/>
+</session>

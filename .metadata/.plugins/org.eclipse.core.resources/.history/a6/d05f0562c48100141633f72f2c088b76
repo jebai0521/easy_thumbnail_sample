@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月12日
+
+@author: jebai
+'''
+
+import json
+import traceback
+from django.http import HttpResponse
+from django.contrib.sites.models import get_current_site
+
+from common.models import Server
+
+
+
+# 获取服务器列表
+def getServerList(request):
+    
+    l = list()
+    
+    for s in Server.objects.order_by('id'):
+        
+        d = dict()
+        
+        d["name"] = s.name
+        d["address"] = s.addr
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+# 包装json数据
+def wrapperJson(data={}, errCode="", errMsg="", message="", success=0):
+    
+    j = {"data":data, "errCode":errCode, "errMsg":errMsg, "message":message , "success":success};    
+    return str(json.dumps(j, ensure_ascii=True, sort_keys=False, indent=4, separators=(',', ': ')))
+
+# 接口路由
+def route(request):
+    do = request.GET.get("do")
+    if do == "login":
+        return login(request)
+    elif do == "logout":
+        return logout(request)

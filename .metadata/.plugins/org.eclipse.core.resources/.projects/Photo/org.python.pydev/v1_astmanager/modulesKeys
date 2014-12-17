@@ -1,0 +1,9 @@
+MODULES_MANAGER_V2
+Photo.__init__|/Users/jebai/Documents/workspace/django/Photo/src/Photo/__init__.py
+Photo.admin|/Users/jebai/Documents/workspace/django/Photo/src/Photo/admin.py
+Photo.models|/Users/jebai/Documents/workspace/django/Photo/src/Photo/models.py
+Photo.settings|/Users/jebai/Documents/workspace/django/Photo/src/Photo/settings.py
+Photo.urls|/Users/jebai/Documents/workspace/django/Photo/src/Photo/urls.py
+Photo.views|/Users/jebai/Documents/workspace/django/Photo/src/Photo/views.py
+Photo.wsgi|/Users/jebai/Documents/workspace/django/Photo/src/Photo/wsgi.py
+manage|/Users/jebai/Documents/workspace/django/Photo/src/manage.py

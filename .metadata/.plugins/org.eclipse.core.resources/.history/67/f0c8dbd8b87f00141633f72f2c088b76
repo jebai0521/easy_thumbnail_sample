@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+
+from django.contrib import admin
+from django import forms
+
+# Register your models here.
+
+
+from customer.models import Customer
+from customer.models import Profile
+
+class ProfileInline(admin.StackedInline):
+    
+    model = Profile
+
+class UserForm(forms.ModelForm):
+    
+    pswd = forms.CharField(widget=forms.PasswordInput())
+    
+    class Meta:
+        model = Customer
+        
+        fields = "__all__"
+        
+class ProfileAdmin(admin.ModelAdmin):
+    
+    list_display = ('user', 'perm_enter', 'perm_update'， perm_inputEnd)
+
+class UserAdmin(admin.ModelAdmin):
+    
+    form = UserForm
+    
+    inlines = [ProfileInline]
+    
+    list_display = ('name', 'code', 'pswd')
+    
+admin.site.register(Customer, UserAdmin)
+admin.site.register(Profile)

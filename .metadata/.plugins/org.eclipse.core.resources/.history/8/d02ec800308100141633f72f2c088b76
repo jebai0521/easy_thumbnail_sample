@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+
+from django.contrib import admin
+from django import forms
+
+# Register your models here.
+
+from show.models import PPT
+from show.models import PPTItem
+
+class PPTItemInline(admin.StackedInline):
+    
+    model = PPTItem
+    
+    extra = 1
+
+class PPTForm(forms.ModelForm):
+    
+    class Meta:
+        model = PPT
+        
+        fields = "__all__" 
+
+class PPTAdmin(admin.ModelAdmin):
+    
+    form = PPTForm
+    
+    inlines = [PPTItemInline]
+    
+    list_display = ('name',)
+    
+class PPTItemAdmin(admin.ModelAdmin):
+    
+    list_display = ('ppt', 'image')
+    
+class  :
+
+admin.site.register(PPT, PPTAdmin)
+admin.site.register(PPTItem, PPTItemAdmin)

@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "order.settings")
+
+import django
+django.setup()
+
+# 客户
+from customer import txt2db as customer_text2db
+customer_text2db.txt2db()
+
+# 店铺
+from store import txt2db as store_text2db
+store_text2db.txt2db()
+
+# 公共
+from common import txt2db as common_txt2db
+common_txt2db.txt2db()
+
+# 设备
+from device import txt2db as device_txt2db
+device_txt2db.txt2db()
+
+# 产品
+from product import txt2db as product_txt2db
+product_txt2db.txt2db()
+
+# 订单
+from product import txt2db as product_txt2db
+product_txt2db.txt2db()
+
+# 秀
+

@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+
+from django.db import models
+from curses.ascii import NUL
+
+# Create your models here.
+
+# 客户
+class Customer(models.Model):
+    
+    name = models.CharField(u'用户名', max_length=30)  # 用户名
+    code = models.CharField(u'用户代码', max_length=30)  # 用户代码
+    pswd = models.CharField(u'密码', max_length=30)  # 密码
+    
+#     device = models.ForeignKey('device.Device', verbose_name=u'设备', null=True, blank=True)
+    
+    # 重载save函数 
+    # 将密码加密
+#     def save(self, *args, **kwargs):
+#         import md5
+#         import hashlib 
+#         self.pswd = hashlib.md5(self.pswd).hexdigest()
+#         super(Customer, self).save(*args, **kwargs)
+    
+    
+    class Meta:
+        verbose_name = u'客户'
+        verbose_name_plural = u'客户'
+
+    def __unicode__(self):
+        return self.name
+
+# 客户资料
+class Profile(models.Model):
+    
+    user                = models.OneToOneField(Customer)        # 关联的用户
+    perm_enter          = models.BooleanField(u'订单进入', default=False)    # 进入订单权限
+    perm_update         = models.BooleanField(u'订单更新', default=False)    # 更新订单权限
+    perm_inputEnd       = models.BooleanField(u'订单初审', default=False)    # 初审权限
+    perm_delete         = models.BooleanField(u'订单删除', default=False)    # 删除权限
+    perm_rfPrice        = models.BooleanField(u'订单刷价', default=False)    # 刷价权限
+    perm_copy           = models.BooleanField(u'订单复制', default=False)    # 复制权限
+    perm_allPluIdea     = models.BooleanField(u'查看评论', default=False)    # 查看评论权限
+    perm_repeal         = models.BooleanField(u'订单驳回', default=False)    # 驳回权限
+    perm_pluRank        = models.BooleanField(u'单品排行榜', default=False)    # 单品排行榜权限
+    perm_pluRankDt      = models.BooleanField(u'单品排行榜详情', default=False)    # 货品排行榜明细权限
+    perm_storeRank      = models.BooleanField(u'店铺排行榜', default=False)    # 店铺排行榜权限
+    perm_storeRankDt    = models.BooleanField(u'店铺排行榜详情', default=False)    # 店铺排行榜明细权限
+    
+    class Meta:
+        verbose_name = u'客户资料'
+        verbose_name_plural = u'客户资料'
+    
+    def __unicode__(self):              # __str__ on Python 3
+        return u"%s的客户资料" % self.user.name

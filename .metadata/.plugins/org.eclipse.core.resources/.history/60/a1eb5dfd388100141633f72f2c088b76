@@ -1,0 +1,44 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('meeting', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.AlterModelOptions(
+            name='order',
+            options={'ordering': ['id'], 'verbose_name': '\u8ba2\u5355', 'verbose_name_plural': '\u8ba2\u5355'},
+        ),
+        migrations.AlterModelOptions(
+            name='orderstatus',
+            options={'ordering': ['id'], 'verbose_name': '\u8ba2\u5355\u72b6\u6001', 'verbose_name_plural': '\u8ba2\u5355\u72b6\u6001'},
+        ),
+        migrations.AlterModelOptions(
+            name='ppt',
+            options={'ordering': ['id'], 'verbose_name': '\u8bb2\u4e49PPT', 'verbose_name_plural': '\u8bb2\u4e49PPT'},
+        ),
+        migrations.AlterModelOptions(
+            name='pptitem',
+            options={'ordering': ['id'], 'verbose_name': '\u8bb2\u4e49PPT\u56fe\u7247', 'verbose_name_plural': '\u8bb2\u4e49PPT\u56fe\u7247'},
+        ),
+        migrations.AlterModelOptions(
+            name='record',
+            options={'ordering': ['id'], 'verbose_name': '\u8ba2\u8d27\u8bb0\u5f55', 'verbose_name_plural': '\u8ba2\u8d27\u8bb0\u5f55'},
+        ),
+        migrations.AlterModelOptions(
+            name='session',
+            options={'ordering': ['id'], 'verbose_name': '\u4f1a\u8bdd\u7ba1\u7406', 'verbose_name_plural': '\u4f1a\u8bdd\u7ba1\u7406'},
+        ),
+        migrations.AlterField(
+            model_name='orderstatus',
+            name='name',
+            field=models.CharField(max_length=30, verbose_name='\u72b6\u6001\u540d\u79f0'),
+            preserve_default=True,
+        ),
+    ]

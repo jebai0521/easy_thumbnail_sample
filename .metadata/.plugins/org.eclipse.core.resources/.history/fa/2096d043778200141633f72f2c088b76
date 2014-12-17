@@ -1,0 +1,124 @@
+# -*- coding: utf-8 -*-
+# from django.shortcuts import render
+# from django.contrib.sites.models import get_current_site
+# from datetime import date
+import json
+
+from django.http import HttpResponse
+from utils.jsonutils import wrapperJson
+
+from order.models import Order
+# from order.models import Record
+
+# 获取订单列表
+def getOrderList(request):
+    
+    l = list()
+    
+    for o in Order.objects.order_by('id'):
+        
+        d = dict()
+        
+        d["id"] = o.id
+        d["code"] = o.code
+        d["meetting"] = o.meeting.__unicode__()
+        d["storeCode"] = o.store.code
+        d["storeName"] = o.store.name
+        d["qty"] = o.qty
+        d["tagAmt"] = o.amount
+        d["status"] = o.status.name
+        d["showDelete"] = int(o.store.customer.profile.perm_delete)
+        d["showInputEnd"] = int(o.store.customer.profile.perm_inputEnd)
+        d["showDelete"] = int(o.store.customer.profile.perm_delete)
+        d["showRfPrice"] = int(o.store.customer.profile.perm_rfPrice)
+        d["showRepeal"] = int(o.store.customer.profile.perm_repeal)
+  
+        l.append(d)
+    
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+def updateInit(request):
+    '''
+    1、根据订单ID拉取订单详情
+    2、根据订货会ID与店铺ID拉取订单详情
+    '''
+    
+    
+    
+    return HttpResponse(wrapperJson(success=1))
+
+def updatesInit(request):
+    '''
+    用于多店订货初始化订单
+    '''
+    order_ids = request.GET.get("order_ids")
+    
+    l = list()
+    
+    for order_id in order_ids.split(","):
+        
+        d = dict()
+        
+        order = Order.objects.get(id=order_id);
+        
+        d["perm_update"] = 1
+        d["store_name"] = 1
+        d["store_id"] = order.store.id
+        d["store_code"] = order.store.code
+        d["order_id"] = order.id
+        
+        
+    
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+# 获取订单列表
+def getOrderTarget(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 订单Handler
+# inputEnd初审|repeal驳回|rfPrice刷价|delete删除
+def handler(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 订单复制
+def copy(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 订单保存
+def save(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 新品展示
+def getShow(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 个人评级查询
+def getPluLevel(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 个人评级保存
+def savePluLevel(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 个人评级汇总
+def sumPluLevel(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 个人意见查询
+def getPluIdea(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 个人意见保存
+def savePluIdea(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 接口路由
+def route(request):
+    do = request.GET.get("do")
+    if do == "getOrderList":
+        return getOrderList(request)
+    elif do == "updateInit":
+        return updateInit(request)
+    elif do == "updatesInit":
+        return updatesInit(request)
+    

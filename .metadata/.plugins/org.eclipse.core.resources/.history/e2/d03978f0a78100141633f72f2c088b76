@@ -1,0 +1,100 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月12日
+
+@author: jebai
+'''
+
+import json
+from django.http import HttpResponse
+from django.contrib.sites.models import get_current_site
+
+from product.models import Plu
+from product.models import Suit
+
+
+# 获取单品序列
+def getPluPic(request):
+    
+    sid = request.GET.get("sid")
+    
+    l = list()
+    
+    addr = "http://" + get_current_site(request).domain
+    
+    for plu in Plu.objects.all().order_by('id'):
+        
+        d = dict()
+        
+        d["suit_codes"] = "★"
+#         d["page_code"] = 1
+        d["plu_id"] = plu.id        # 单品ID
+        d["plu_pic"] = addr + plu.image.url # 单品图片
+#         d["index_code"] = 1        
+        d["sCode"] = 1              # 短号
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"indexs":l}))
+     
+#     return HttpResponse(wrapperJson(success=1))
+
+# 获取套装序列
+def getSuitPic(request):
+    
+    sid = request.GET.get("sid")
+    
+    l = list()
+    
+    addr = "http://" + get_current_site(request).domain
+    
+    for suit in Suit.objects.order_by('id'):
+        
+        d = dict()
+        
+#         d["suit_codes"] = "★"
+#         d["page_code"] = 1
+        d["suit_id"] = suit.id        # 套装ID
+        d["suit_pic"] = addr + suit.image.url # 套装图片
+#         d["index_code"] = 1        
+        d["sCode"] = 1              # 短号
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+# 店铺筛选数据
+
+
+# 货品筛选列表
+def filterPlu(request):
+
+    l = list()
+    
+    for store in Plu.objects.order_by('id'):
+        
+        d = dict()
+        
+        d["code"] = store.code      # 套装ID
+        d["name"] = store.name      # 套装图片
+        d["id"] = store.id          # 短号
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+# 包装json数据
+def wrapperJson(data={}, errCode="", errMsg="", message="", success=0):
+    
+    j = {"data":data, "errCode":errCode, "errMsg":errMsg, "message":message , "success":success};    
+    return str(json.dumps(j, ensure_ascii=True, sort_keys=False, indent=4, separators=(',', ': ')))
+
+# 接口路由
+def route(request):
+    do = request.GET.get("do")
+    if do == "filterPlu":
+        return filterPlu(request)
+    elif do == "getPluPic":
+        return getPluPic(request)
+    elif do == "getSuitPic":
+        return getSuitPic(request)

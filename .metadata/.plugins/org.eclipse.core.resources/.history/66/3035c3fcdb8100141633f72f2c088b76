@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+
+from django.contrib import admin
+
+# Register your models here.
+
+from common.models import Server
+
+class ServerAdmin(admin.ModelAdmin):
+    
+    list_display = ('name', 
+                    'perm_enter', 
+                    'perm_update',
+                    'perm_inputEnd',
+                    'perm_delete',
+                    'perm_rfPrice',
+                    'perm_copy',
+                    'perm_allPluIdea',
+                    'perm_repeal',
+                    'perm_pluRank',
+                    'perm_pluRankDt',
+                    'perm_storeRank',
+                    'perm_storeRankDt')
+
+admin.site.register(Server, ServerAdmin)

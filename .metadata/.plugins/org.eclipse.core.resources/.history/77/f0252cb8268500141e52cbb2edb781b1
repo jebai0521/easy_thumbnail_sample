@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+from django.contrib import admin
+from imagekit.admin import AdminThumbnail
+
+from suit.widgets import EnclosedInput
+from django.forms import ModelForm
+
+# Register your models here.
+
+# 货品属性
+from product.models import Brand
+from product.models import Year
+from product.models import Season
+from product.models import Meeting
+from product.models import Wave
+from product.models import Sort
+from product.models import Category
+from product.models import Pattern
+from product.models import Range
+
+from product.models import SizeGroupTemplate, SizeGroupTemplateSize
+from product.models import Status
+from product.models import Long
+
+from product.models import Plu
+from product.models import Suit
+
+from product.models import Color
+# from product.models import Size
+
+# class PluItemAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'name')
+    
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', "short_name")
+    
+    
+class WaveAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', "onsell", "desc", "meeting")
+
+admin.site.register(Brand, BrandAdmin)
+admin.site.register(Season)
+admin.site.register(Year)
+
+admin.site.register(Meeting)
+
+admin.site.register(Wave, WaveAdmin)
+admin.site.register(Sort)
+admin.site.register(Category)
+admin.site.register(Pattern)
+admin.site.register(Range)
+admin.site.register(SizeGroupTemplate)
+admin.site.register(SizeGroupTemplateSize)
+admin.site.register(Status)
+admin.site.register(Long)
+
+class PluForm(ModelForm):
+    class Meta:
+        widgets = {
+
+            # You can also use prepended and appended together
+            'price': EnclosedInput(prepend=u'￥', attrs={'class': 'input-mini'}),
+        }
+
+from sorl.thumbnail.admin import AdminImageMixin
+class PluAdmin(AdminImageMixin, admin.ModelAdmin):
+    
+    form = PluForm
+#     image_thumbnail = AdminThumbnail(image_field='image_thumbnail')
+    list_display = ('code', 'image')
+
+admin.site.register(Plu, PluAdmin)
+admin.site.register(Suit)
+
+admin.site.register(Color)
+# admin.site.register(Size)

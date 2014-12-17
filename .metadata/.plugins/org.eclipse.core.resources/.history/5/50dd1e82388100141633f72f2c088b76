@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+
+from django.db import models
+
+# Create your models here.
+
+# 服务器
+class Server(models.Model):
+
+    name = models.CharField(u'名称', max_length=30)       # 服务器名
+    addr = models.CharField(u'地址', max_length=100)       # 服务器地址
+    context = models.CharField(u'上下文', max_length=30)   # 上下文路径
+    
+    class Meta:
+        verbose_name = u'服务器'
+        verbose_name_plural = u'服务器'
+#         app_label = u"公共信息"
+    
+    def __unicode__(self):
+        return self.name

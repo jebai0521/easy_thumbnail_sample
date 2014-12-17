@@ -1,0 +1,28 @@
+-- VERSION_4
+-- START DISKCACHE
+/Users/jebai/Documents/workspace/django/.metadata/.plugins/org.eclipse.core.resources/.projects/pytest/com.python.pydev.analysis/v2_indexcache
+com.__init__|1416627222000|/Users/jebai/Documents/workspace/django/pytest/src/com/__init__.py
+com.sencloud.test.strtest.__init__|1416627231000|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/strtest/__init__.py
+com.sencloud.test.__init__|1416627222000|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/__init__.py
+com.sencloud.test.dbtest.__init__|1416898281000|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/dbtest/__init__.py
+com.sencloud.test.strtest.111|1418175806000|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/strtest/111.py
+com.sencloud.test.dbtest.mysqltes|1416898935000|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/dbtest/mysqltes.py
+com.sencloud.__init__|1416627222000|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/__init__.py
+-- END DISKCACHE
+-- START DICTIONARY
+2
+2=com.sencloud.test.strtest.111
+1=com.sencloud.test.dbtest.mysqltes
+-- END DICTIONARY
+-- START TREE 1
+6
+con|1|conn!11@
+cur|1|cursor!11@
+dum|1|dump!18@
+n|1|n!11@
+pro|1|processTxt!18@
+wra|1|wrapperJson!18@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

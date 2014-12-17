@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+
+from django.contrib import admin
+
+# Register your models here.
+
+from store.models import Type
+from store.models import Method
+from store.models import Company
+from store.models import Group
+from store.models import BusinessStatus
+from store.models import Sort
+from store.models import Face
+from store.models import Country
+from store.models import Region
+from store.models import Province
+from store.models import City
+from store.models import Brand
+
+from store.models import Store
+
+class StoreItemAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+admin.site.register(Type, StoreItemAdmin)
+admin.site.register(Method, StoreItemAdmin)
+admin.site.register(Company, StoreItemAdmin)
+admin.site.register(Group, StoreItemAdmin)
+admin.site.register(BusinessStatus, StoreItemAdmin)
+admin.site.register(Sort, StoreItemAdmin)
+admin.site.register(Face, StoreItemAdmin)
+admin.site.register(Country, StoreItemAdmin)
+admin.site.register(Region, StoreItemAdmin)
+admin.site.register(Province, StoreItemAdmin)
+admin.site.register(City, StoreItemAdmin)
+admin.site.register(Brand, StoreItemAdmin)
+
+class StoreItemAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+admin.site.register(Store)

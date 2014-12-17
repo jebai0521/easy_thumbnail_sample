@@ -1,0 +1,65 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月15日
+
+@author: jebai
+'''
+
+from easy_thumbnails.fields import ThumbnailerImageField
+from easy_thumbnails.widgets import ImageClearableFileInput
+
+from django.contrib import admin
+from django import forms
+
+# Register your models here.
+
+from Photo.models import PPT
+from Photo.models import PPTItem
+
+class PPTItemInline(admin.StackedInline):
+    
+    model = PPTItem
+    
+    extra = 1
+    
+    formfield_overrides = {
+        ThumbnailerImageField: {'widget': ImageClearableFileInput},
+    }
+
+class PPTForm(forms.ModelForm):
+    
+    class Meta:
+        model = PPT
+        
+        fields = "__all__" 
+
+class PPTAdmin(admin.ModelAdmin):
+    
+    form = PPTForm
+    
+    inlines = [PPTItemInline]
+    
+    list_display = ('name',)
+    
+    formfield_overrides = {
+        ThumbnailerImageField: {'widget': ImageClearableFileInput},
+    }
+    
+# class PPTItenForm(forms.ModelForm):
+#     
+#     formfield_overrides = {
+#         ThumbnailerImageField: {'widget': ImageClearableFileInput}
+#     }
+#     
+class PPTItemAdmin(admin.ModelAdmin):
+    
+#     form = PPTItenForm
+    
+    list_display = ('ppt', 'image')
+    formfield_overrides = {
+        ThumbnailerImageField: {'widget': ImageClearableFileInput},
+    }
+
+
+admin.site.register(PPT, PPTAdmin)
+admin.site.register(PPTItem, PPTItemAdmin)

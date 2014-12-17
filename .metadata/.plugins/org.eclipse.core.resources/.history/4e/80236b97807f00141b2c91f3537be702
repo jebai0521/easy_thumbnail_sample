@@ -1,0 +1,17 @@
+from django.db import models
+
+# Create your models here.
+
+
+class Device(models.Model):
+    
+    name = models.CharField()
+    
+    udid = models.CharField()
+    
+    sn = models.CharField()
+    
+    imei = 
+
+    
+    

@@ -1,0 +1,254 @@
+# -*- coding: utf-8 -*-
+from django.db import models
+
+# Create your models here.
+
+
+class Brand(models.Model):
+    
+    name = models.CharField(u'名称', max_length=10,  blank=True)      # 品牌名
+    
+    short_name = models.CharField(u'短名', max_length=10, null=True, blank=True)  # 品牌短名
+
+    class Meta:
+        verbose_name = u'品牌'
+        verbose_name_plural = u'品牌'
+        ordering = ['id']
+
+    def __unicode__(self):
+        return self.name
+
+
+# 货品年份
+class Year(models.Model):
+    
+    name = models.IntegerField(u'年份', blank=True)       # 年份名
+
+    class Meta:
+        verbose_name = u'年份'
+        verbose_name_plural = u'年份'
+        ordering = ['id']
+#         pass
+    
+    def __unicode__(self):
+        return str(self.name)
+
+# 货品季节
+class Season(models.Model):
+    
+    name = models.CharField(max_length=4,  blank=True)       # 季节名
+
+    class Meta:
+        verbose_name = u'季节'
+        verbose_name_plural = u'季节'
+        ordering = ['id']
+
+    def __unicode__(self):
+        return self.name
+
+# 订货会
+class Meeting(models.Model):
+    
+    brand = models.ForeignKey('product.Brand', verbose_name="品牌")       # 品牌名
+    year = models.ForeignKey('product.Year', verbose_name="年份")         # 年份
+    season = models.ForeignKey('product.Season', verbose_name="季节")     # 季节
+    cover= models.ImageField(upload_to='./meeting', verbose_name="封面")  # 订货会封面
+    status = models.BooleanField(default=False)                          # 状态（是否开放的）
+
+    class Meta:
+        verbose_name = u'订货会'
+        verbose_name_plural = u'订货会'
+        ordering = ['id']
+        pass
+        
+    def __unicode__(self):
+        return str(self.year.name) + u"年" + self.brand.short_name +  self.season.name + u"货"
+
+# 货品波段
+class Wave(models.Model):
+    
+    name = models.CharField(max_length=10)                  # 波段名
+    onsell = models.DateField()                             # 上架时间
+    desc = models.CharField(max_length=100)                 # 描述
+    meeting = models.ForeignKey('product.Meeting')          # 所属订货会
+
+    class Meta:
+        verbose_name = u'波段'
+        verbose_name_plural = u'波段'
+        ordering = ['id']
+     
+    def __unicode__(self):
+        return self.name
+
+# 货品装别
+class Sort(models.Model):
+    
+    name = models.CharField(max_length=100)     # 分类名
+
+    class Meta:
+        verbose_name = u'装别'
+        verbose_name_plural = u'装别'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return self.name
+
+# 货品类别
+class Category(models.Model):
+    
+    name = models.CharField(max_length=30)      # 类别名
+
+    class Meta:
+        verbose_name = u'类别'
+        verbose_name_plural = u'类别'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return self.name
+  
+# 货品款型  
+class Pattern(models.Model):
+    
+    name = models.CharField(max_length=30)      # 款型名称
+
+    class Meta:
+        verbose_name = u'款型'
+        verbose_name_plural = u'款型'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return self.name
+    
+# 货品系列
+class Range(models.Model):
+    
+    name = models.CharField(max_length=30)      # 系列名称
+
+    class Meta:
+        verbose_name = u'系列'
+        verbose_name_plural = u'系列'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return self.name
+    
+# 货品尺码组
+class SizeGroup(models.Model):
+    
+    name = models.CharField(max_length=30)      # 尺码组名称
+
+    class Meta:
+        verbose_name = u'尺码组'
+        verbose_name_plural = u'尺码组'
+        ordering = ['id']
+        pass
+    
+    def __unicode__(self):
+        return self.name
+
+# 货品状态
+class Status(models.Model):
+    
+    name = models.CharField(max_length=30)  # 状态名称
+
+    class Meta:
+        verbose_name = u'状态'
+        verbose_name_plural = u'状态'
+        ordering = ['id']
+        pass
+        
+    def __unicode__(self):
+         
+        return self.name
+    
+# 货品款式定义
+class Long(models.Model):
+    
+    name = models.CharField(max_length=30)  # 款式定义名称
+
+    class Meta:
+        verbose_name = u'款式定义'
+        verbose_name_plural = u'款式定义'
+        ordering = ['id']
+        pass
+    
+    def __unicode__(self):
+        return self.name
+    
+# 货品
+class Plu(models.Model):
+    
+    index = models.IntegerField(default=0)          # 流水号
+    code = models.CharField(max_length=100)         # 单品编码
+    price = models.FloatField()                     # 价格
+    shortCode = models.CharField(max_length=10, default="")     # 短号
+    
+    brand = models.ForeignKey(Brand)                # 品牌
+    year = models.ForeignKey(Year)                  # 年份
+    season = models.ForeignKey(Season)              # 季节
+    wave = models.ForeignKey(Wave)                  # 波段
+    sort = models.ForeignKey(Sort)                  # 装别
+    category = models.ForeignKey(Category)          # 类别
+    pattern = models.ForeignKey(Pattern)            # 款型
+    range = models.ForeignKey(Range)                # 系列
+    sizeGroup = models.ForeignKey(SizeGroup)        # 尺码组
+    long = models.ForeignKey(Long)               
+
+    image = models.ImageField("plu", upload_to='./plu')   # 单品图片(一般是所有颜色)
+    
+    class Meta:
+        verbose_name = u'单品'
+        verbose_name_plural = u'单品'
+        ordering = ['id']
+        pass
+    
+    def __unicode__(self):
+        return self.code
+    
+# 套装
+class Suit(models.Model):
+    
+    index = models.IntegerField(default=0) 
+    code = models.CharField(max_length=100)     # 编号
+    wave = models.ForeignKey(Wave)              # 波段
+    image = models.ImageField("suit", upload_to='./suit')   # 套装图片
+    plus = models.ManyToManyField('Plu')        # 套装包含的单品
+    shortCode = models.CharField(max_length=10, default="")     # 短号
+
+    class Meta:
+        verbose_name = u'套装'
+        verbose_name_plural = u'套装'
+        ordering = ['id']
+        pass
+    
+    def __unicode__(self):
+        return self.name
+    
+# 颜色 
+class Color(models.Model):
+    
+    name = models.CharField(max_length=10)                  # 颜色
+    plu = models.ForeignKey('Plu')                          # 单品
+    pic = models.ImageField('pic', upload_to='./product')       # 颜色对应的图片
+
+    class Meta:
+        verbose_name = u'单品颜色'
+        verbose_name_plural = u'单品颜色'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return self.name
+    
+# 尺码
+class Size(models.Model):
+    
+    name = models.CharField(max_length=10)  # 名子
+
+    class Meta:
+        verbose_name = u'单品颜色'
+        verbose_name_plural = u'单品颜色'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return self.name
+    

@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月12日
+
+@author: jebai
+'''
+
+import json
+# from django.http import HttpResponse
+
+# 包装json数据
+def wrapperJson(data={}, errCode="", errMsg="", message="", success=0):
+    
+    j = {"data":data, "errCode":errCode, "errMsg":errMsg, "message":message , "success":success};    
+    return str(json.dumps(j, ensure_ascii=True, sort_keys=False, indent=4, separators=(',', ': ')))
+
+# 接口路由
+def route(request):
+    do = request.GET.get("do")
+    

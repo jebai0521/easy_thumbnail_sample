@@ -1,0 +1,13 @@
+MODULES_MANAGER_V2
+manage|/Users/jebai/Documents/workspace/django/train/src/manage.py
+train.__init__|/Users/jebai/Documents/workspace/django/train/src/train/__init__.py
+train.settings|/Users/jebai/Documents/workspace/django/train/src/train/settings.py
+train.urls|/Users/jebai/Documents/workspace/django/train/src/train/urls.py
+train.wsgi|/Users/jebai/Documents/workspace/django/train/src/train/wsgi.py
+upload.__init__|/Users/jebai/Documents/workspace/django/train/src/upload/__init__.py
+upload.admin|/Users/jebai/Documents/workspace/django/train/src/upload/admin.py
+upload.migrations.0001_initial|/Users/jebai/Documents/workspace/django/train/src/upload/migrations/0001_initial.py
+upload.migrations.__init__|/Users/jebai/Documents/workspace/django/train/src/upload/migrations/__init__.py
+upload.models|/Users/jebai/Documents/workspace/django/train/src/upload/models.py
+upload.tests|/Users/jebai/Documents/workspace/django/train/src/upload/tests.py
+upload.views|/Users/jebai/Documents/workspace/django/train/src/upload/views.py

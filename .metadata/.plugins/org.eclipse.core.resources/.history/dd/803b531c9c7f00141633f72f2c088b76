@@ -1,0 +1,60 @@
+# -*- coding: utf-8 -*-
+
+from django.contrib import admin
+from django import forms
+
+# Register your models here.
+
+
+from meeting.models import Order
+from meeting.models import Record
+
+# from meeting.models import Meeting
+
+from meeting.models import PPT
+from meeting.models import PPTItem
+
+from meeting.models import Session
+
+class PPTItemInline(admin.StackedInline):
+    
+    model = PPTItem
+    
+    extra = 1
+
+class PPTForm(forms.ModelForm):
+    
+    class Meta:
+        model = PPT
+        
+        fields = "__all__" 
+
+class PPTAdmin(admin.ModelAdmin):
+    
+    form = PPTForm
+    
+    inlines = [PPTItemInline]
+    
+    list_display = ('name',)
+    
+class PPTItemAdmin(admin.ModelAdmin):
+    
+    list_display = ('ppt', 'image')
+    
+#     readonly_fields = ('image_tag',)
+
+class SessionAdmin(admin.ModelAdmin):
+
+    readonly_fields = ('customer', 'sid', 'create_time')
+    list_display = ('customer', 'sid', 'create_time')
+
+admin.site.register(Order)
+admin.site.register(Record)
+
+# admin.site.register(Meeting)
+
+admin.site.register(PPT, PPTAdmin)
+admin.site.register(PPTItem, PPTItemAdmin)
+
+admin.site.register(Session, SessionAdmin)
+

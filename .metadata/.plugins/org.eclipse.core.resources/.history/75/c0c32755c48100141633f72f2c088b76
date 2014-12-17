@@ -1,0 +1,86 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月12日
+
+@author: jebai
+'''
+
+import json
+import traceback
+from django.http import HttpResponse
+from django.contrib.sites.models import get_current_site
+
+from common.models import Server
+from customer.models import Profile
+from customer.models import Session
+
+# 登陆
+def login(request):
+    
+    code = request.GET.get("userCode")
+    pswd = request.GET.get("password")
+    
+    print "code == " , code , "password == ", pswd
+    
+    try:
+        c =  Customer.objects.get(code=code)
+        
+        print str(c)
+                
+        if c is not None:
+        
+            d = dict()
+            
+            d["userCode"] = c.code
+            d["userName"] = c.name
+            
+            session = Session.objects.create_book(c);
+            d["sid"] = session.sid
+            
+            d["perm_enter"] = int(c.profile.perm_enter)
+            d["perm_update"] = int(c.profile.perm_update)
+            d["perm_inputEnd"] = int(c.profile.perm_inputEnd)
+            d["perm_delete"] = int(c.profile.perm_delete)
+            d["perm_rfPrice"] = int(c.profile.perm_rfPrice)
+            d["perm_copy"] = int(c.profile.perm_copy)
+            d["perm_allPluIdea"] = int(c.profile.perm_allPluIdea)
+            d["perm_repeal"] = int(c.profile.perm_repeal)
+            d["perm_pluRank"] = int(c.profile.perm_pluRank)
+            d["perm_pluRankDt"] = int(c.profile.perm_pluRankDt)
+            d["perm_storeRank"] = int(c.profile.perm_storeRank)
+            d["perm_storeRankDt"] = int(c.profile.perm_storeRankDt)
+                        
+            return HttpResponse(wrapperJson(success=1, data=d))
+        else:
+            return HttpResponse(wrapperJson(success=0, errMsg="用户名不存在", errCode="err.user.notfound", message="用户名不存在"))
+    except Exception,e:
+        print traceback.print_exc()
+        return HttpResponse(wrapperJson(success=0, errMsg="用户名不存在", errCode="err.user.notfound", message="用户名不存在"))
+
+# 注销
+def logout(request):
+    
+    sid = request.GET.get("sid")
+    
+    session = Session.objects.get(sid=sid)
+    
+    if session:
+        session.delete()
+    else:
+        print "会话不存在"
+    
+    return HttpResponse(wrapperJson(success=1))
+
+# 包装json数据
+def wrapperJson(data={}, errCode="", errMsg="", message="", success=0):
+    
+    j = {"data":data, "errCode":errCode, "errMsg":errMsg, "message":message , "success":success};    
+    return str(json.dumps(j, ensure_ascii=True, sort_keys=False, indent=4, separators=(',', ': ')))
+
+# 接口路由
+def route(request):
+    do = request.GET.get("do")
+    if do == "login":
+        return login(request)
+    elif do == "logout":
+        return logout(request)

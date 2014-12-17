@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+
+from django.contrib import admin
+
+# Register your models here.
+
+from order.models import Order
+from meeting.models import Record
+
+# from meeting.models import Meeting
+from meeting.models import OrderStatus
+
+admin.site.register(Order)
+admin.site.register(Record)
+
+admin.site.register(OrderStatus)

@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+
+def importStart(name):
+    
+    print u"\n======开始导入 %s ======" %(name,)
+    
+def importFinish(name):
+    
+    print u"======完成导入 %s ======\n" %(name,)
+
+def importOrderStatus():
+    importStart(u"订单状态")
+    from order.models import OrderStatus
+    f = open("orderstatus.txt")
+    for line in f:
+#         print line
+        name = line.strip()
+        OrderStatus.objects.create(name=name)
+    f.close()
+    importFinish(u"订单状态")
+    
+def importOrder():
+    importStart(u"订单")
+    from order.models import OrderStatus
+    from order.models import Order
+    from product.models import Meeting
+    from store.models import Store
+    f = open("orderstatus.txt")
+    for line in f:
+        code, meeting_id,  store_id, qty, amount, status_id = line.strip()
+        Order.objects.create(code=code,
+                                   meeting=Meeting.objects.get(id=meeting_id),
+                                   store=Store.objects.get(id=store_id),
+                                   amount=float(amount),
+                                   qty=float(amount),
+                                   status=OrderStatus.objects.get(id=status_id))
+    f.close()
+    importFinish(u"订单")
+        
+def txt2db():
+    
+    import os
+    
+    os.chdir( os.path.join(os.path.dirname(__file__), "txts"))
+    
+    print "======开始导入公共信息======"
+
+#     importOrderStatus()
+    importOrder()
+    
+    print "======开始导入公共信息======"
+    
+if __name__=="__main__":
+
+    import os
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "order.settings")
+    
+    import django
+    django.setup()
+    
+    txt2db()

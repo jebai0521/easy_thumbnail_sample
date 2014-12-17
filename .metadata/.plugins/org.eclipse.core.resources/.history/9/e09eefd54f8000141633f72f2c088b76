@@ -1,0 +1,203 @@
+# -*- coding: utf-8 -*-
+
+from django.db import models
+
+# Create your models here.
+
+# 店铺类型
+class Type(models.Model):
+    
+    name = models.CharField(max_length=30, verbose_name=u'类型名称')  # 类型名称
+    
+    class Meta:
+        verbose_name = u'店铺类型'
+        verbose_name_plural = u'店铺类型'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+    
+# 经营方式
+class Method(models.Model):
+    
+    name = models.CharField(max_length=30, verbose_name=u'经营方式')
+    
+    class Meta:
+        verbose_name = u'经营方式'
+        verbose_name_plural = u'经营方式'
+        ordering = ['id']
+        
+    def __unicode__(self):
+         
+        return self.name
+
+# (分)公司
+class Company(models.Model):
+    
+    name = models.CharField(max_length=30, verbose_name=u'(分)公司')
+    
+    class Meta:
+        verbose_name = u'(分)公司'
+        verbose_name_plural = u'(分)公司'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 管理区域
+class Group(models.Model):
+    
+    name = models.CharField(max_length=30)
+    
+    class Meta:
+        verbose_name = u'管理区域'
+        verbose_name_plural = u'管理区域'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 经营状态
+class BusinessStatus(models.Model):
+    
+    name = models.CharField(max_length=30)
+    
+    class Meta:
+        verbose_name = u'经营状态'
+        verbose_name_plural = u'经营状态'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+    
+# 店铺级别
+class Sort(models.Model):
+    
+    name = models.CharField(max_length=30)
+    
+    class Meta:
+        verbose_name = u'店铺级别'
+        verbose_name_plural = u'店铺级别'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 店面类型
+class Face(models.Model):
+    
+    name = models.CharField(max_length=30, verbose_name=u"类型名称")
+    
+    class Meta:
+        verbose_name = u'店面类型'
+        verbose_name_plural = u'店面类型'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 国家
+class Country(models.Model):
+    
+    name = models.CharField(max_length=30)
+    
+    class Meta:
+        verbose_name = u'国家'
+        verbose_name_plural = u'国家'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 经济区域
+class Region(models.Model):
+    
+    name = models.CharField(max_length=30)
+    
+    class Meta:
+        verbose_name = u'经济区域'
+        verbose_name_plural = u'经济区域'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 省份 
+class Province(models.Model):
+    
+    name = models.CharField(max_length=30)
+    
+    class Meta:
+        verbose_name = u'省份'
+        verbose_name_plural = u'省份'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 城市
+class City(models.Model):
+    
+    name = models.CharField(max_length=30, verbose_name=u"城市名称")
+    
+    class Meta:
+        verbose_name = u'城市'
+        verbose_name_plural = u'城市'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 店铺品牌
+class Brand(models.Model):
+    
+    name = models.CharField(max_length=30, verbose_name=u"品牌名称")
+    
+    class Meta:
+        verbose_name = u'品牌'
+        verbose_name_plural = u'品牌'
+        ordering = ['id']
+    
+    def __unicode__(self):
+         
+        return self.name
+
+# 店铺
+class Store(models.Model):
+    
+    code = models.CharField(max_length=30)  # 编号
+    name = models.CharField(max_length=30)  # 名字
+    
+    type = models.ForeignKey(Type, verbose_name=u"店铺类型")
+    method = models.ForeignKey(Method, verbose_name=u"经营方式")
+    company = models.ForeignKey(Company, verbose_name=u"店铺类型")
+    group = models.ForeignKey(Group, verbose_name=u"管理区域")
+    customer = models.ForeignKey('customer.Customer', verbose_name=u"资金账户")
+    businessStatus = models.ForeignKey(BusinessStatus, verbose_name=u"经营状态")
+    sort = models.ForeignKey(Sort, verbose_name=u"店铺级别")
+    face = models.ForeignKey(Face, verbose_name=u"店面类型")
+    country = models.ForeignKey(Country, verbose_name=u"国家")
+    region = models.ForeignKey(Region, verbose_name=u"经济区域")
+    province = models.ForeignKey(Province, verbose_name=u"省份")
+    city = models.ForeignKey(City, verbose_name=u"城市")
+    brand = models.ForeignKey(Brand, verbose_name=u"店铺品牌")
+    
+    customer = models.ForeignKey('customer.Customer', verbose_name=u"资金账户")
+
+    class Meta:
+        verbose_name = u'店铺'
+        verbose_name_plural = u'店铺'
+        ordering = ['id']
+    
+    def __unicode__(self):
+        return self.name

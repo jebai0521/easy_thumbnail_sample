@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年11月22日
+
+@author: jebai
+'''
+import json
+
+def dump():
+     
+  
+    obj = [[1,2,3],123,123.123,'abc',{'key1':(1,2,3),'key2':(4,5,6)}]
+    encodedjson = json.dumps(obj)
+    print repr(obj)
+    print encodedjson
+    
+def wrapperJson(data={}, errCode=0, errMsg="", message="", success=1):
+    return str(json.dumps({"data":data, "errCode":errCode, "errMsg":errMsg, "message":message , "success":success}, ensure_ascii=False))
+
+def processTxt():
+    f = open("a.txt")
+    for line in f:
+        line = line.strip()
+        
+        
+
+if __name__ == '__main__':
+    
+    
+    dump()
+    
+    print wrapperJson(errCode="如果")
+    pass

@@ -1,0 +1,249 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+
+import datetime
+import dateutil.parser
+from tablib.packages.odf.svg import Desc
+from product.models import SizeGroupTemplate
+
+def importStart(name):
+    
+    print u"\n======开始导入 %s ======" %(name,)
+    
+def importFinish(name):
+    
+    print u"======完成导入 %s ======\n" %(name,)
+    
+def importBrand():
+    importStart(u"品牌")
+    from product.models import Brand
+    f = open("brand.txt")
+    for line in f:
+        name, short_name = line.strip().split()
+        Brand.objects.create(name=name, short_name=short_name)
+    f.close()
+    importFinish(u"品牌")
+
+def importYear():
+    importStart(u"年份")
+    from product.models import Year
+    f = open("year.txt")
+    for line in f:
+        name = line.strip()
+        Year.objects.create(name=name)
+    f.close()
+    importFinish(u"年份")
+
+def importSeason():
+    importStart(u"季节")
+    from product.models import Season
+    f = open("season.txt")
+    for line in f:
+        name = line.strip()
+        Season.objects.create(name=name)
+    f.close()
+    importFinish(u"季节")
+
+def importMeeting():
+    importStart(u"订货会")
+    from product.models import Year
+    from product.models import Brand
+    from product.models import Season
+    from product.models import Meeting
+    f = open("meeting.txt")
+    for line in f:
+        yearname, brand_name, season_name = line.strip().split()
+        year = Year.objects.get(name=yearname)
+        brand = Brand.objects.get(name=brand_name)
+        season = Season.objects.get(name=season_name)
+        Meeting.objects.create(year=year, brand=brand, season=season)
+    f.close()
+    importFinish(u"订货会")
+
+def importWave():
+    importStart(u"波段")
+    from product.models import Wave
+    from product.models import Meeting
+    f = open("wave.txt")
+    for line in f:
+        name, mid, desc, date = line.strip().split()
+        Wave.objects.create(name=name, onsell=dateutil.parser.parse(date), desc=desc, meeting=Meeting.objects.get(id=mid))
+    f.close()
+    importFinish(u"波段")
+    
+def importSort():
+    importStart(u"装别")
+    from product.models import Sort
+    f = open("sort.txt")
+    for line in f:
+        name = line.strip()
+        Sort.objects.create(name=name)
+    f.close()
+    importFinish(u"装别")
+    
+def importCategory():
+    importStart(u"类别")
+    from product.models import Category
+    f = open("category.txt")
+    for line in f:
+        name = line.strip()
+        Category.objects.create(name=name)
+    f.close()
+    importFinish(u"类别")
+    
+def importPattern():
+    importStart(u"款型")
+    from product.models import Pattern
+    f = open("pattern.txt")
+    for line in f:
+        name = line.strip()
+        Pattern.objects.create(name=name)
+    f.close()
+    importFinish(u"款型")
+    
+def importRange():
+    importStart(u"系列")
+    from product.models import Range
+    f = open("range.txt")
+    for line in f:
+        name = line.strip()
+        Range.objects.create(name=name)
+    f.close()
+    importFinish(u"系列")
+    
+def importSizeGroupTemplate():
+    importStart(u"尺码组模板")
+    from product.models import SizeGroupTemplate
+    f = open("sizegroup.txt")
+    for line in f:
+        name = line.strip()
+        SizeGroupTemplate.objects.create(name=name)
+    f.close()
+    importFinish(u"尺码组模板")
+    
+def importSizeGroupTemplateSize():
+    importStart(u"尺码组模板尺码信息")
+    from product.models import SizeGroupTemplateSize
+    f = open("sizegroup.txt")
+    for line in f:
+        tepmlate_name, name,  = line.strip()
+        
+        SizeGroupTemplateSize.objects.create(name=name)
+    f.close()
+    importFinish(u"尺码组模板尺码信息")
+    
+def importStatus():
+    importStart(u"状态")
+    from product.models import Status
+    f = open("status.txt")
+    for line in f:
+        name = line.strip()
+        Status.objects.create(name=name)
+    f.close()
+    importFinish(u"状态")
+    
+def importLong():
+    importStart(u"款式")
+    from product.models import Long
+    f = open("long.txt")
+    for line in f:
+        name = line.strip()
+        Long.objects.create(name=name)
+    f.close()
+    importFinish(u"款式")
+    
+def importPlu():
+    importStart(u"单品")
+    from product.models import Plu
+    f = open("plu.txt")
+    for line in f:
+        name = line.strip()
+        Plu.objects.create(name=name)
+    f.close()
+    importFinish(u"单品")
+
+def importSuit():
+    importStart(u"套装")
+    from product.models import Suit
+    f = open("suit.txt")
+    for line in f:
+        name = line.strip()
+        Suit.objects.create(name=name)
+    f.close()
+    importFinish(u"套装")
+    
+def importColor():
+    importStart(u"颜色")
+    from product.models import Color
+    f = open("color.txt")
+    for line in f:
+        name = line.strip()
+        Color.objects.create(name=name)
+    f.close()
+    importFinish(u"颜色")
+
+def importSizeGroup():
+    importStart(u"尺码组")
+    from product.models import SizeGroup
+    f = open("sizegroup.txt")
+    for line in f:
+        name = line.strip()
+        SizeGroup.objects.create(name=name)
+    f.close()
+    importFinish(u"尺码组")
+# def importSize():
+#     importStart(u"尺码")
+#     from product.models import Size
+#     f = open("size.txt")
+#     for line in f:
+#         name = line.strip()
+#         Size.objects.create(name=name)
+#     f.close()
+#     importFinish(u"尺码")
+    
+def txt2db():
+    
+    import os
+#     print os.getcwd()
+#     print __file__
+#     print os.path.dirname(__file__)
+    os.chdir( os.path.join(os.path.dirname(__file__), "txts"))
+#     print os.getcwd()
+    
+    print "======开始导入店铺数据字典======"
+
+    importBrand()
+    importYear()
+    importSeason()
+    importMeeting()
+    importWave()
+    importSort()
+    importCategory()
+    importPattern()
+    importRange()
+    importSizeGroup()
+    importStatus()
+    importLong()
+
+#     importPlu()
+#     importSuit()
+#     importColor()
+#     importSize()
+    
+    print "======完成导入店铺数据字典======"
+
+if __name__=="__main__":
+
+    import os
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "order.settings")
+    
+    import django
+    django.setup()
+    
+    txt2db()
+    
+    

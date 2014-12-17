@@ -1,0 +1,80 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+import code
+
+def importStart(name):
+    
+    print u"\n======开始导入 %s ======" %(name,)
+    
+def importFinish(name):
+    
+    print u"======完成导入 %s ======\n" %(name,)
+
+def importCustomer():
+    importStart(u"客户")
+    from customer.models import Customer
+    f = open("user.txt")
+    for line in f:
+        name, code, pswd = line.strip().split()
+        
+#         print name
+#         print code
+#         print pswd
+        
+        c = Customer.objects.create(name=name, code=code, pswd=pswd)
+    f.close()
+    importFinish(u"客户资料")
+    
+def importProfile():
+    importStart(u"客户资料")
+    from customer.models import Customer
+    from customer.models import Profile
+    f = open("profile.txt")
+    for line in f:
+        code, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12 = line.strip().split()
+#         print code
+#         print p1
+#         print int(p1)
+        customer = Customer.objects.get(code=code);
+        Profile.objects.create(user=customer, 
+                                         perm_enter=int(p1), 
+                                         perm_update=int(p2),
+                                         perm_inputEnd=int(p3),
+                                         perm_delete=int(p4),
+                                         perm_rfPrice=int(p5),
+                                         perm_copy=int(p6),
+                                         perm_allPluIdea=int(p7),
+                                         perm_repeal=int(p8),
+                                         perm_pluRank=int(p9),
+                                         perm_pluRankDt=int(p10),
+                                         perm_storeRank=int(p11),
+                                         perm_storeRankDt=int(p12))
+        
+    importFinish(u"客户资料")
+        
+def txt2db():
+    
+    import os
+    
+    os.chdir( os.path.join(os.path.dirname(__file__), "txts"))
+    
+    print "======开始导入用户数据字典======"
+
+#     importCustomer()
+    importProfile()
+    
+    print "======完成导入用户数据字典======"
+    
+if __name__=="__main__":
+
+    import os
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "order.settings")
+    
+    import django
+    django.setup()
+    
+    txt2db()

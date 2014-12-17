@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月12日
+
+@author: jebai
+'''
+
+# from django.shortcuts import render
+# from django.contrib.sites.models import get_current_site
+
+# from meeting.models import *
+import json
+
+from django.http import HttpResponse
+# from django.http import HttpRequest
+# from django.forms import model_to_dict
+# from datetime import date
+from store import interface as store_json
+from product import interface as plu_json
+from customer import interface as customer_json
+from common import interface as common_json
+from order import interface as order_json
+# from device import interface as device_json
+from show import interface as show_json
+
+# 接口路由
+def route(request):
+
+    do = request.GET.get("do")
+    if do is None:
+        return HttpResponse(wrapperJson(success=0, errMsg="function not found %s"%(do,), errCode=404, message="方法未找到"))
+
+    elif do in ["getServerList",]:
+        return common_json.route(request)
+    
+    elif do in ["login", "logout"]:
+        return customer_json.route(request)
+    
+    elif do in ["filterStore",  "getStoreList"]:
+        return store_json.route(request)
+    
+    elif do in ["filterPlu", "getPluPic", "getSuitPic", "getMeetintList"]:
+        return plu_json.route(request)
+    
+    elif do in ["getOrderList",]:
+        return order_json.route(request)
+        
+#     elif do == "handle":
+#         return handler(request)
+
+    elif do in ["getShow",] :
+        return show_json.route(request)
+    
+    else:
+        message = "%s is mot implement, use default response"%(do,)
+        return HttpResponse(wrapperJson(success=1,  message=message))
+    
+# 包装json数据
+def wrapperJson(data={}, errCode="", errMsg="", message="", success=0):
+    
+    j = {"data":data, "errCode":errCode, "errMsg":errMsg, "message":message , "success":success};    
+    return str(json.dumps(j, ensure_ascii=True, sort_keys=False, indent=4, separators=(',', ': ')))

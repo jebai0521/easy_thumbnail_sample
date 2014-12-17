@@ -1,0 +1,8 @@
+MODULES_MANAGER_V2
+com.__init__|/Users/jebai/Documents/workspace/django/pytest/src/com/__init__.py
+com.sencloud.__init__|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/__init__.py
+com.sencloud.test.__init__|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/__init__.py
+com.sencloud.test.dbtest.__init__|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/dbtest/__init__.py
+com.sencloud.test.dbtest.mysqltes|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/dbtest/mysqltes.py
+com.sencloud.test.strtest.111|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/strtest/111.py
+com.sencloud.test.strtest.__init__|/Users/jebai/Documents/workspace/django/pytest/src/com/sencloud/test/strtest/__init__.py

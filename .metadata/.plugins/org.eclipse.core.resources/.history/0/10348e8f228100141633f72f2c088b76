@@ -1,0 +1,259 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月11日
+
+@author: jebai
+'''
+
+from store.models import Type
+from customer.models import Customer
+
+from store.models import Method
+from store.models import Company
+from store.models import Group
+from store.models import BusinessStatus
+from store.models import Sort
+from store.models import Face
+from store.models import Country
+from store.models import Region
+from store.models import Province
+from store.models import City
+from store.models import Brand
+
+from store.models import Store
+
+import json
+
+from django.http import HttpResponse
+
+def filterStore(request):
+    
+    data = dict()
+    
+    types  = list()
+    for t in Type.objects.order_by('id'):
+        
+        d = dict()
+        
+        d["NAME"] = t.name   # 套装ID
+        d["ID"] = t.id     # 套装图片
+  
+        types.append(d)
+        
+    data["types"] = types
+        
+    
+    customers = list()
+    for t in Customer.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = t.name   # 套装ID
+        d["ID"] = t.id     # 套装图片
+   
+        customers.append(d)
+        
+    data["customers"] = customers
+    
+    companys = list()
+    
+    for c in Company.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        companys.append(d)
+        
+    data["companys"] = companys
+    
+    sorts = list()
+    
+    for c in Sort.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        sorts.append(d)
+        
+    data["storeSorts"] = sorts
+    
+    countrys = list()
+    
+    for c in Country.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        countrys.append(d)
+        
+    data["countrys"] = countrys
+    
+    faces = list()
+    
+    for c in Face.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        faces.append(d)
+        
+    data["storeFaces"] = faces
+    
+    businessStatuss = list()
+    
+    for c in BusinessStatus.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        businessStatuss.append(d)
+        
+    data["businessStatuss"] = businessStatuss
+    
+    regions = list()
+    
+    for c in Region.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        regions.append(d)
+        
+    data["regions"] = regions
+    
+    groups = list()
+    
+    for c in Group.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        groups.append(d)
+        
+    data["groups"] = groups
+    
+    citys = list()
+    
+    for c in City.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        citys.append(d)
+        
+    data["citys"] = citys
+    
+    storebrands = list()
+    
+    for c in Brand.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        storebrands.append(d)
+        
+    data["storebrands"] = storebrands
+    
+    methods = list()
+    
+    for c in Method.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        methods.append(d)
+        
+    data["methods"] = methods
+    
+    provinces = list()
+    
+    for c in Province.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["NAME"] = c.name   # 套装ID
+        d["ID"] = c.id     # 套装图片
+   
+        provinces.append(d)
+        
+    data["provinces"] = provinces
+    
+    stores = list()
+    
+    for s in Store.objects.order_by('id'):
+         
+        d = dict()
+         
+        d["TYPEID"] = s.type.id   # 套装ID
+        d["REGIONID"] = s.region.id    # 套装图片
+        d["PROVINCEID"] = c.id     # 套装图片
+        d["STOREBRANDID"] = c.id     # 套装图片
+        d["CITYID"] = c.city.id     # 套装图片
+        d["COUNTRYID"] = c.country.id     # 套装图片
+        d["COMPANYID"] = s.company.id     # 套装图片
+        d["STOREFACEID"] = s.face.id     # 套装图片
+        d["BUSINESSSTATUSID"] = s.businessStatus.id     # 套装图片
+        d["STORESORTID"] = s.sort.id     # 套装图片
+        d["GROUPID"] = s.group.id     # 套装图片
+        d["CODE"] = s.code     # 套装图片
+        d["CUSTOMERID"] = s.customer.id     # 套装图片
+        d["NAME"] = s.name     # 套装图片
+        d["ID"] = s.id     # 套装图片
+   
+        stores.append(d)
+        
+    data["stores"] = stores
+        
+    return HttpResponse(wrapperJson(success=1, data=data))
+
+def getStoreList(request):
+    
+    l = list()
+    
+    for store in Store.objects.order_by('id'):
+        
+        d = dict()
+        
+        d["code"] = store.code                # 套装ID
+        d["name"] = store.name   # 套装图片
+        d["id"] = store.id                        # 短号
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+# 包装json数据
+def wrapperJson(data={}, errCode="", errMsg="", message="", success=0):
+    
+    j = {"data":data, "errCode":errCode, "errMsg":errMsg, "message":message , "success":success};    
+    return str(json.dumps(j, ensure_ascii=True, sort_keys=False, indent=4, separators=(',', ': ')))
+
+
+# 接口路由
+def route(request):
+    do = request.GET.get("do")
+    if do == "filterStore":
+        return filterStore(request)
+    elif do == "getStoreList":
+        return getStoreList(request)
+

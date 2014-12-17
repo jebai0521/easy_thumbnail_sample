@@ -1,0 +1,55 @@
+-- VERSION_4
+-- START DISKCACHE
+/Users/jebai/Documents/workspace/django/.metadata/.plugins/org.eclipse.core.resources/.projects/train/com.python.pydev.analysis/v2_indexcache
+train.settings|1416899073000|/Users/jebai/Documents/workspace/django/train/src/train/settings.py
+upload.admin|1416377629000|/Users/jebai/Documents/workspace/django/train/src/upload/admin.py
+train.urls|1416447607000|/Users/jebai/Documents/workspace/django/train/src/train/urls.py
+upload.views|1416376408000|/Users/jebai/Documents/workspace/django/train/src/upload/views.py
+upload.tests|1416376408000|/Users/jebai/Documents/workspace/django/train/src/upload/tests.py
+train.__init__|1416368418000|/Users/jebai/Documents/workspace/django/train/src/train/__init__.py
+upload.migrations.0001_initial|1416377786000|/Users/jebai/Documents/workspace/django/train/src/upload/migrations/0001_initial.py
+train.wsgi|1416368418000|/Users/jebai/Documents/workspace/django/train/src/train/wsgi.py
+upload.migrations.__init__|1416376408000|/Users/jebai/Documents/workspace/django/train/src/upload/migrations/__init__.py
+manage|1416368418000|/Users/jebai/Documents/workspace/django/train/src/manage.py
+upload.models|1416377742000|/Users/jebai/Documents/workspace/django/train/src/upload/models.py
+upload.__init__|1416376408000|/Users/jebai/Documents/workspace/django/train/src/upload/__init__.py
+-- END DISKCACHE
+-- START DICTIONARY
+7
+1=train.settings
+5=train.urls
+3=upload.migrations.0001_initial
+6=Profile
+2=train.wsgi
+4=upload.models
+7=Migration
+-- END DICTIONARY
+-- START TREE 1
+19
+all|1|ALLOWED_HOSTS!11@
+app|1|application!19@
+bas|1|BASE_DIR!11@
+dat|1|DATABASES!11@
+deb|1|DEBUG!11@
+ins|1|INSTALLED_APPS!11@
+lan|1|LANGUAGE_CODE!11@
+med|2|MEDIA_URL!11@MEDIA_ROOT!11@
+mid|1|MIDDLEWARE_CLASSES!11@
+mig|1|Migration!25@
+pro|1|Profile!33@
+roo|1|ROOT_URLCONF!11@
+sec|1|SECRET_KEY!11@
+sta|1|STATIC_URL!11@
+tem|1|TEMPLATE_DEBUG!11@
+tim|1|TIME_ZONE!11@
+url|1|urlpatterns!43@
+use|3|USE_TZ!11@USE_L10N!11@USE_I18N!11@
+wsg|1|WSGI_APPLICATION!11@
+-- END TREE
+-- START TREE 2
+4
+cov|1|cover!6&35@
+dep|1|dependencies!7&27@
+nam|1|name!6&35@
+ope|1|operations!7&27@
+-- END TREE

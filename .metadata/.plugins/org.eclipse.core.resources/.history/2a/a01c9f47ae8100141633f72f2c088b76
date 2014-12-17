@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+
+
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+
+def importStart(name):
+    
+    print u"\n======开始导入 %s ======" %(name,)
+    
+def importFinish(name):
+    
+    print u"======完成导入 %s ======\n" %(name,)
+
+def importServer():
+    importStart(u"服务器列表")
+    from common.models import Server
+    f = open("server.txt")
+    for line in f:
+#         print line
+        name, addr, context = line.strip().split(",")    
+        Server.objects.create(name=name, addr=addr, context=context)
+    f.close()
+    importFinish(u"服务器列表")
+        
+def txt2db():
+    
+    import os
+    
+    os.chdir( os.path.join(os.path.dirname(__file__), "txts"))
+    
+    print "======开始导入======"
+
+    importServer()
+    
+    print "======开始导入======"
+    
+if __name__=="__main__":
+
+    import os
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "order.settings")
+    
+    import django
+    django.setup()
+    
+    txt2db()

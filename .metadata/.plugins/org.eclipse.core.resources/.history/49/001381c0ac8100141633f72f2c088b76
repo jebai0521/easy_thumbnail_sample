@@ -1,0 +1,214 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+
+def importStart(name):
+    
+    print u"\n======开始导入 %s ======" %(name,)
+    
+def importFinish(name):
+    
+    print u"======完成导入 %s ======\n" %(name,)
+
+def importType():
+    importStart(u"店铺类型")
+    from store.models import Type
+    f = open("type.txt")
+    for line in f:
+        name = line.strip()
+        Type.objects.create(name=name)
+    f.close()
+    importFinish(u"店铺类型")
+    
+def importMethod():
+    importStart(u"经营方式")
+    from store.models import Method
+    f = open("method.txt")
+    for line in f:
+        name = line.strip()
+        Method.objects.create(name=name)
+    f.close()
+    importFinish(u"经营方式")
+
+def importCompany():
+    importStart(u"(分)公司")
+    from store.models import Company
+    f = open("company.txt")
+    for line in f:
+        name = line.strip()
+        Company.objects.create(name=name)
+    f.close()
+    importFinish(u"(分)公司")
+
+def importGroup():
+    importStart(u"管理区域")
+    from store.models import Group
+    f = open("group.txt")
+    for line in f:
+        name = line.strip()
+        Group.objects.create(name=name)
+    f.close()
+    importFinish(u"管理区域")
+    
+def importBusinessStatus():
+    importStart(u"经营状态")
+    from store.models import BusinessStatus
+    f = open("businessStatus.txt")
+    for line in f:
+        name = line.strip()
+        BusinessStatus.objects.create(name=name)
+    f.close()
+    importFinish(u"经营状态")
+    
+def importSort():
+    importStart(u"店铺级别")
+    from store.models import Sort
+    f = open("sort.txt")
+    for line in f:
+        name = line.strip()
+        Sort.objects.create(name=name)
+    f.close()
+    importFinish(u"店铺级别")
+    
+def importFace():
+    importStart(u"店面类型")
+    from store.models import Face
+    f = open("face.txt")
+    for line in f:
+        name = line.strip()
+        Face.objects.create(name=name)
+    f.close()
+    importFinish(u"店面类型")
+    
+def importCountry():
+    importStart(u"国家")
+    from store.models import Country
+    f = open("country.txt")
+    for line in f:
+        name = line.strip()
+        Country.objects.create(name=name)
+    f.close()
+    importFinish(u"国家")
+    
+def importRegion():
+    importStart(u"经济区域")
+    from store.models import Region
+    f = open("region.txt")
+    for line in f:
+        name = line.strip()
+        Region.objects.create(name=name)
+    f.close()
+    importFinish(u"经济区域")
+    
+def importProvince():
+    importStart(u"省份")
+    from store.models import Province
+    f = open("provinces.txt")
+    for line in f:
+        name = line.strip()
+        Province.objects.create(name=name)
+    f.close()
+    importFinish(u"省份")
+    
+def importCity():
+    importStart(u"城市")
+    from store.models import City
+    f = open("city.txt")
+    for line in f:
+        name = line.strip()
+        City.objects.create(name=name)
+    f.close()
+    importFinish(u"城市")
+    
+def importBrand():
+    importStart(u"店铺品牌")
+    from store.models import Brand
+    f = open("brand.txt")
+    for line in f:
+        name = line.strip()
+        Brand.objects.create(name=name)
+    f.close()
+    importFinish(u"店铺品牌")
+    
+def importStore():
+    importStart(u"店铺")
+    from store.models import Store
+    from store.models import Type
+    from store.models import Method
+    from store.models import Company
+    from store.models import Group
+    from customer.models import Customer
+    from store.models import BusinessStatus
+    from store.models import Sort
+    from store.models import Face
+    from store.models import Country
+    from store.models import Region
+    from store.models import Province
+    from store.models import City
+    from store.models import Brand
+    f = open("store.txt")
+    for line in f:
+        code, name, type_id, method_id, company_id, group_id, customer_id, \
+        businessStatus_id, sort_id, face_id, country_id, region_id, province_id, \
+        city_id, brand_id  = line.strip().split()
+        
+        Store.objects.create(code=code, 
+                             name=name, 
+                             type=Type.objects.get(id=type_id),
+                             method=Method.objects.get(id=method_id),
+                             company=Company.objects.get(id=company_id),
+                             grop=Group.objects.get(id=group_id),
+                             customer=Customer.objects.get(id=customer_id),
+                             businessStatus=BusinessStatus.objects.get(id=businessStatus_id),
+                             sort=Sort.objects.get(id=sort_id),
+                             face=Face.objects.get(id=face_id),
+                             country=Country.objects.get(id=country_id),
+                             region=Region.objects.get(id=region_id),
+                             province=Province.objects.get(id=province_id),
+                             city=City.objects.get(id=city_id),
+                             brand=Brand.objects.get(id=brand_id))
+    f.close()
+    importFinish(u"店铺")
+    
+def txt2db():
+    
+    import os
+#     print os.getcwd()
+#     print __file__
+#     print os.path.dirname(__file__)
+    os.chdir( os.path.join(os.path.dirname(__file__), "txts"))
+#     print os.getcwd()
+    
+    print "======开始导入店铺数据字典======"
+
+#     importType()
+#     importMethod()
+#     importCompany()
+#     importGroup()
+#     importBusinessStatus()
+#     importSort()
+#     importFace()
+#     importCountry()
+#     importCompany()
+#     importRegion()
+#     importProvince()
+#     importCity()
+#     importBrand()
+    importStore()
+    
+    print "======完成导入店铺数据字典======"
+
+if __name__=="__main__":
+
+    import os
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "order.settings")
+    
+    import django
+    django.setup()
+    
+    txt2db()
+    
+    

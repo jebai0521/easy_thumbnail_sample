@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+'''
+
+from django.apps import AppConfig
+
+class MeetingAppConfig(AppConfig):
+
+    name = 'device'
+    label = u"device"
+    verbose_name = u"设备管理"

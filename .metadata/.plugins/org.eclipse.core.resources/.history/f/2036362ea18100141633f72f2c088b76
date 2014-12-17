@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月5日
+
+@author: jebai
+
+'''
+
+def importStart(name):
+    
+    print u"\n======开始导入 %s ======" %(name,)
+    
+def importFinish(name):
+    
+    print u"======完成导入 %s ======\n" %(name,)
+
+def importDevice():
+    importStart(u"设备")
+    from customer.models import Customer
+    f = open("device.txt")
+    for line in f:
+        name, code, pswd = line.strip().split()    
+        Customer.objects.create(name=name, code=code, pswd=pswd)
+    f.close()
+    importFinish(u"设备")
+        
+def txt2db():
+    
+    import os
+    
+    os.chdir( os.path.join(os.path.dirname(__file__), "txts"))
+    
+    print "======开始导入设备数据======"
+
+    importDevice()
+    
+    print "======完成导入设备数据======"
+    
+if __name__=="__main__":
+
+    import os
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "order.settings")
+    
+    import django
+    django.setup()
+    
+    txt2db()

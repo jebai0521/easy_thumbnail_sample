@@ -1,0 +1,185 @@
+# -*- coding: utf-8 -*-
+'''
+Created on 2014年12月12日
+
+@author: jebai
+'''
+
+from django.http import HttpResponse
+from utils.jsonutils import wrapperJson
+from django.contrib.sites.models import get_current_site
+
+from product.models import Plu
+from product.models import Suit
+from product.models import Meeting
+from product.models import Wave
+
+
+# 获取单品序列
+def getPluPic(request):
+    
+#     sid = request.GET.get("sid")
+    
+    l = list()
+    
+    addr = "http://" + get_current_site(request).domain
+    
+    for plu in Plu.objects.all().order_by('id'):
+        
+        d = dict()
+        
+        d["suit_codes"] = "★"
+#         d["page_code"] = 1
+        d["plu_id"] = plu.id        # 单品ID
+        d["plu_pic"] = addr + plu.image.url # 单品图片
+#         d["index_code"] = 1        
+        d["sCode"] = 1              # 短号
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"indexs":l}))
+
+# 获取套装序列
+def getSuitPic(request):
+    
+#     sid = request.GET.get("sid")
+    
+    l = list()
+    
+    addr = "http://" + get_current_site(request).domain
+    
+    for suit in Suit.objects.order_by('id'):
+        
+        d = dict()
+        
+#         d["suit_codes"] = "★"
+#         d["page_code"] = 1
+        d["suit_id"] = suit.id        # 套装ID
+        d["suit_pic"] = addr + suit.image.url # 套装图片
+#         d["index_code"] = 1        
+        d["sCode"] = 1              # 短号
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+
+
+# 货品筛选列表
+def filterPlu(request):
+
+    l = list()
+    
+    for store in Plu.objects.order_by('id'):
+        
+        d = dict()
+        
+        d["code"] = store.code      # 套装ID
+        d["name"] = store.name      # 套装图片
+        d["id"] = store.id          # 短号
+  
+        l.append(d)
+        
+    return HttpResponse(wrapperJson(success=1, data={"list":l}))
+
+# 获取订货会列表
+def getMeetintList(request):
+
+    l = list()
+
+    print request.session.session_key
+    
+#     addr = "http://" + get_current_site(request).domain
+
+    for m in Meeting.objects.order_by('year').order_by('season'):
+        
+        d = dict()
+        
+        d["id"] = m.id
+        d["status"] = int(m.status)
+        d["name"] = m.__unicode__()
+        
+#         if m.cover is not None:
+#             d["pic_path"] = addr  + m.cover.url
+#         else:
+#             d["pic_path"] = ""
+
+        d["pic_path"] = ""
+        l.append(d)
+        
+        # TODO: 设备名 && 用户名列表 && 图片判空
+        
+    return HttpResponse(wrapperJson(success=1, data={"list":l, "device_no" : "", "user_list" : "jebai"}))
+
+
+
+# 获取PPT列表等
+# 获取PPT列表    type = ppt
+# 获取波段列表    type = wave
+# 获取品类列表    type = category
+# 获取装别列表    type = sort
+def getList(request):
+    
+    list_type = request.GET.get("type")
+    
+    if list_type == "ppt":
+        pass
+    elif list_type == "wave":
+        pass
+    elif list_type == "wave_book":
+        
+        l = list()
+        
+        for w in Wave.objects.all():
+            
+        
+        pass
+    elif list_type == "category":
+        pass
+    elif list_type == "sort":
+        pass
+    elif list_type == "long":
+        pass
+    else:
+        pass
+    
+    return HttpResponse(wrapperJson(success=1))
+
+# 订货手册与单品查询
+# 手册 
+# 查询 type = search
+def getBookList(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 套装手册与套装查询
+def getSuitList(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 单品信息
+def getPlu(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 套装信息
+def getSuit(request):
+    return HttpResponse(wrapperJson(success=1))
+
+# 接口路由
+def route(request):
+    do = request.GET.get("do")
+    if do == "filterPlu":
+        return filterPlu(request)
+    elif do == "getPluPic":
+        return getPluPic(request)
+    elif do == "getSuitPic":
+        return getSuitPic(request)    
+    elif do == "getMeetingList":
+        return getMeetintList(request)
+    elif do == "getBookList":
+        return getBookList(request)
+    elif do == "getSuitList":
+        return getSuitList(request)
+    elif do == "getPlu":
+        return getPlu(request)
+    elif do == "getSuit":
+        return getSuit(request)
+        
